@@ -62,17 +62,23 @@ app.listen(port, ()=>{
 
 ```
 ### queries.js
+The documentation : https://node-postgres.com/features/pooling
+
+the suggested data structure is located here: https://node-postgres.com/guides/project-structure
+
+
 
 ```js
-const Pool = require('pg').Pool
+const Pool = require('pg').Pool //creates a client pool. this is useful because if you have a large number of requests going to the postgres server it could crash. this limits the requests. 
 const pool = new Pool({
     user: 'postgres',
     host: 'localhost',
     database: 'postgres',
-    password: 'OMarrah213!@',
+    password: '',
     port: 5432
-})
+}) //this defines the inputs of the connection to the postgres server update your values to match
 
+//this function is used to make a get request from the database - it returns all the users from the users table
 const getUsers = (request, response) => {
     pool.query('SELECT * FROM users', (error, results)=>{
         if(error){
@@ -82,6 +88,7 @@ const getUsers = (request, response) => {
     })
 }
 
+//this function is a post request to the database, it returns the updates user to the database.
 const createUser = (request, response) => {
     const {username, email, number_apps, most_app_time, least_app_time} = request.body
 

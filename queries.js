@@ -1,4 +1,4 @@
-const Pool = require('pg').Pool
+const {Pool} = require('pg')
 const pool = new Pool({
     user: 'postgres',
     host: 'localhost',
@@ -26,6 +26,7 @@ const createUser = (request, response) => {
         response.status(201).send(`User added with ID: ${results.rows[0].id}`)
     })
 }
+// Get full CRUD: by ID; Update; Delete users
 
 module.exports = {
     getUsers,
